@@ -1,0 +1,60 @@
+<div class="row wow fadeInUp" style="margin: auto">
+
+  <div *ngFor="let product of products" class="card" style="width: 18rem;">
+    <img class="card-img-top" src="{{product.imgURL}}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{product.name}}</h5>
+      <p class="card-text">${{product.price}}</p>
+      <a class="btn btn-primary" (click)="DeleteProduct(product.id)">Deleter From Cart</a>
+    </div>
+  </div>
+
+  <form *ngIf="products != 0" style="margin: auto" #checkOutForm="ngForm" (ngSubmit)="CheckOut()">
+    <h2 *ngIf="products != 0">Check out</h2>
+    <h2 *ngIf="products != 0">Total: ${{priceToPay}}</h2>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Card Number</label>
+        <input type="number" class="form-control" id="inputEmail4" placeholder="Card Number" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputPassword4">CVV</label>
+        <input type="number" class="form-control" id="inputPassword4" placeholder="CVV" required >
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputAddress">Address</label>
+      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required >
+    </div>
+    <div class="form-group">
+      <label for="inputAddress2">Address 2</label>
+      <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputCity">City</label>
+        <input type="text" class="form-control" id="inputCity" required >
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputAddress2">State</label>
+        <input type="text" class="form-control" id="inputAddress2" placeholder="State" required >
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputZip">Zip</label>
+        <input type="number" class="form-control" id="inputZip" required >
+      </div>
+    </div>
+    <button [disabled]="!checkOutForm.form.valid" type="submit" class="btn btn-primary">Check out</button>
+  </form>
+
+  <div *ngIf="paid != false">
+    <div class="alert alert-success" role="alert">
+      Thank you, your order should arrive soon!
+    </div>
+  </div>
+
+  <div *ngIf="products == 0" style="margin: auto">
+    <h1>Add products to your cart!</h1>
+  </div>
+
+</div>
